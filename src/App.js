@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import OnboardScreen from './screens/OnBoardScreen';
 import LoginScreen from './screens/LoginScreen';
+import SignUpScreen from './screens/SignUpScreen';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -18,7 +19,7 @@ const App = () => {
     AsyncStorage.getItem('alreadyLaunched')
       .then((value) => {
         if (value === null) {
-          AsyncStorage.setItem('alreadyLaunched', true);
+          AsyncStorage.setItem('alreadyLaunched', JSON.stringify(true));
           setFirstLaunch(true);
         } else {
           setFirstLaunch(false);
@@ -35,11 +36,13 @@ const App = () => {
         <AppStack.Navigator headerMode="none">
           <AppStack.Screen name="Onboarding" component={OnboardScreen} />
           <AppStack.Screen name="LoginScreen" component={LoginScreen} />
+          <AppStack.Screen name="SignUpScreen" component={SignUpScreen} />
         </AppStack.Navigator>
       </NavigationContainer>
     );
   } else {
-    <LoginScreen />;
+    // return <LoginScreen />;
+    return <SignUpScreen />;
   }
 };
 
